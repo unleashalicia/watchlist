@@ -32,11 +32,11 @@
   </div>
 
   <div class="field">
-    <% film.genre.each_with_index do |genre, index| %>
+    <% @genre.each_with_index do |genre, index| %>
       <%= form.fields_for :genres, genre do |gf| %>
         <%# Create a checkbox for each genre %>
-        <%= gf.label film.genre[index].name %>
-        <%= gf.check_box :id, {}, film.genre[index].id %>
+        <%= gf.label genre.name %>
+        <%= gf.check_box :id, {}, genre.id %>
       <% end %>
     <% end %>
   </div>
