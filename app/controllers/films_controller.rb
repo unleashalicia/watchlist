@@ -16,6 +16,7 @@ class FilmsController < ApplicationController
   def new
     @film = Film.new
     @genre = Genre.all
+    @film.genre.build
   end
 
   # GET /films/1/edit
@@ -27,6 +28,8 @@ class FilmsController < ApplicationController
   # POST /films.json
   def create
     @film = Film.new(film_params)
+    # @film.genre_ids = params[:film][:genres]
+
 
     respond_to do |format|
       if @film.save
@@ -43,7 +46,7 @@ class FilmsController < ApplicationController
   # PATCH/PUT /films/1.json
   def update
     params[:film][:genre] ||= []
-    @film.genres << Genre.where(:id => params[:film][:genre_attributes])
+    # @film.genres << Genre.where(:id => params[:film][:genre_attributes])
 
     respond_to do |format|
       if @film.update(film_params)
@@ -74,6 +77,6 @@ class FilmsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def film_params
-      params.require(:film).permit(:name, :year, :free, :description, genre_attributes: [:id])
+      params.require(:film).permit(:name, :year, :free, :description, :genre_ids => [])
     end
 end
